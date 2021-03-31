@@ -1,0 +1,16 @@
+.NewTaskForm {
+  .Field {
+    margin-top: 0.75rem;
+  }
+
+  &__button {
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem;
+    min-height: 3rem;
+
+    &:hover {
+      background: #f3f4f6;
+    }
+  }
+}

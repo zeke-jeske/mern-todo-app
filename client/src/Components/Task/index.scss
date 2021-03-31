@@ -1,0 +1,22 @@
+.Task {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  align-items: center;
+
+  &__checkbox {
+    margin: 1rem;
+  }
+
+  &__name {
+    flex: 1;
+    margin: 0;
+    padding: 1rem 0;
+    min-height: 3rem;
+    cursor: pointer;
+
+    &--completed {
+      text-decoration: line-through;
+      color: #888a8f;
+    }
+  }
+}
