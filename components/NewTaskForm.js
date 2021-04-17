@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import Field from 'Components/Field'
-import './index.scss'
+import Field from 'components/Field'
 
 export default function NewTaskForm({ onSubmit }) {
   const [active, setActive] = useState(false)

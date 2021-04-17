@@ -1,5 +1,4 @@
 import React from 'react'
-import './index.scss'
 
 const variants = ['primary', 'delete', 'text']
 

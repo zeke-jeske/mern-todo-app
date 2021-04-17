@@ -1,12 +1,11 @@
 import React from 'react'
 import ReactModal from 'react-modal'
 
-import './index.scss'
-import CloseButton from './CloseButton'
-import Field from 'Components/Field'
-import Button from 'Components/Button'
+import CloseButton from 'components/CloseButton'
+import Field from 'components/Field'
+import Button from 'components/Button'
 
-ReactModal.setAppElement('#root')
+// ReactModal.setAppElement('#root')
 
 export default function Modal({
   isOpen,

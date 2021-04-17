@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import Task from 'components/Task'
+import Modal from 'components/Modal'
+import NewTaskForm from 'components/NewTaskForm'
 
-import './index.scss'
-import Task from 'Components/Task'
-import Modal from './Modal'
-import NewTaskForm from './NewTaskForm'
-
-const API_ENDPOINT = '/api/v1'
+const API_ENDPOINT = '/api/tasks'
 
 export default function App() {
   const [loading, setLoading] = useState(true)

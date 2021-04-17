@@ -1,7 +1,7 @@
 import React, { createRef, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
-import './index.scss'
-import Button from 'Components/Button'
+
+import Button from 'components/Button'
 
 export default function Field({
   onSave,

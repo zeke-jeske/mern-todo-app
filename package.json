@@ -6,17 +6,22 @@
   "author": "Zeke Jeske",
   "license": "MIT",
   "scripts": {
-    "server": "nodemon -i client/ server.js",
-    "client": "cd client && yarn start",
-    "start": "node server.js",
-    "build": "cd client && yarn && yarn build"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.12.2"
+    "mongoose": "^5.12.2",
+    "next": "^10.1.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-modal": "^3.13.1",
+    "react-textarea-autosize": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.7",
