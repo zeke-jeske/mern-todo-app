@@ -1,7 +1,29 @@
 import React, { createRef, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
+import styled from 'styled-components'
 
 import Button from 'components/Button'
+
+const Form = styled.form`
+  display: flex;
+  flex-wrap: wrap;
+
+  &:not(:focus-within) {
+    textarea {
+      border-color: transparent;
+    }
+  }
+
+  textarea {
+    width: 100%;
+    margin-bottom: 0.75rem;
+    resize: none;
+  }
+`
+
+const CancelButton = styled(Button)`
+  margin-left: 0.75rem;
+`
 
 export default function Field({
   onSave,
@@ -46,12 +68,7 @@ export default function Field({
   }
 
   return (
-    <form
-      onSubmit={save}
-      className={`Field ${className}`}
-      onBlur={handleBlur}
-      ref={form}
-    >
+    <Form onSubmit={save} className={className} onBlur={handleBlur} ref={form}>
       <TextareaAutosize
         onChange={handleChange}
         onFocus={() => setActive(true)}
@@ -70,15 +87,11 @@ export default function Field({
           >
             {saveMsg}
           </Button>
-          <Button
-            variant='text'
-            onClick={cancel}
-            className='Field__cancel-button'
-          >
+          <CancelButton variant='text' onClick={cancel}>
             Cancel
-          </Button>
+          </CancelButton>
         </>
       )}
-    </form>
+    </Form>
   )
 }

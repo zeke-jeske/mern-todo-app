@@ -1,8 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import styled from 'styled-components'
 import Task from 'components/Task'
 import Modal from 'components/Modal'
 import NewTaskForm from 'components/NewTaskForm'
+
+const Container = styled.div`
+  padding: 2rem;
+  margin: 0 auto;
+`
+
+const Heading = styled.h1`
+  font-size: 2.25rem;
+  margin-bottom: 2rem;
+`
+
+const List = styled.div`
+  padding: 0 2rem;
+`
+
+const EmptyMsg = styled.p`
+  border-bottom: 1px solid #e5e7eb;
+  padding: 1rem 0;
+  color: #888a8f;
+`
 
 const API_ENDPOINT = '/api/tasks'
 
@@ -84,13 +105,13 @@ export default function App() {
   }
 
   return (
-    <div className='App container'>
-      <h1 className='App__heading'>To-do</h1>
+    <Container className='container'>
+      <Heading>To-do</Heading>
       {loading ? (
         <p>Loading...</p>
       ) : (
         <>
-          <div className='App__list'>
+          <List>
             <ul>
               {tasks.length ? (
                 tasks.map(({ _id, ...props }, index) => (
@@ -105,14 +126,14 @@ export default function App() {
                   />
                 ))
               ) : (
-                <p className='App__empty-msg'>
+                <EmptyMsg>
                   You don't have any tasks yet! Click "Add a task" to create
                   one. ↓
-                </p>
+                </EmptyMsg>
               )}
             </ul>
             <NewTaskForm onSubmit={createTask} />
-          </div>
+          </List>
           <Modal
             isOpen={modalIsOpen}
             onClose={closeModal}
@@ -123,6 +144,6 @@ export default function App() {
           />
         </>
       )}
-    </div>
+    </Container>
   )
 }

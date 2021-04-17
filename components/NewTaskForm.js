@@ -1,13 +1,29 @@
 import React, { useState } from 'react'
 import Field from 'components/Field'
+import styled from 'styled-components'
+
+const StyledField = styled(Field)`
+  margin-top: 0.75rem;
+`
+
+const Button = styled.button`
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem;
+  min-height: 3rem;
+
+  &:hover {
+    background: #f3f4f6;
+  }
+`
 
 export default function NewTaskForm({ onSubmit }) {
   const [active, setActive] = useState(false)
 
   return (
-    <div className='NewTaskForm'>
+    <div>
       {active ? (
-        <Field
+        <StyledField
           onClose={() => setActive(false)}
           onSave={onSubmit}
           saveMsg='Add'
@@ -15,13 +31,9 @@ export default function NewTaskForm({ onSubmit }) {
           required={true}
         />
       ) : (
-        <button
-          type='button'
-          onClick={() => setActive(true)}
-          className='NewTaskForm__button'
-        >
+        <Button type='button' onClick={() => setActive(true)}>
           + Add a task
-        </button>
+        </Button>
       )}
     </div>
   )

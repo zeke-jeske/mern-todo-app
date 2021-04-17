@@ -1,20 +1,38 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const Container = styled.li`
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  align-items: center;
+`
+
+const Checkbox = styled.input`
+  margin: 1rem;
+`
+
+const Name = styled.p`
+  flex: 1;
+  margin: 0;
+  padding: 1rem 0;
+  min-height: 3rem;
+  cursor: pointer;
+
+  ${(props) =>
+    props.completed &&
+    `
+    text-decoration: line-through;
+    color: #888a8f;
+  `}
+`
 
 export default function Task({ completed, onToggle, name, onClick }) {
   return (
-    <li className='Task'>
-      <input
-        className='Task__checkbox'
-        type='checkbox'
-        checked={completed}
-        onChange={onToggle}
-      />
-      <p
-        onClick={onClick}
-        className={'Task__name' + (completed ? ' Task__name--completed' : '')}
-      >
+    <Container>
+      <Checkbox type='checkbox' checked={completed} onChange={onToggle} />
+      <Name onClick={onClick} completed={completed}>
         {name}
-      </p>
-    </li>
+      </Name>
+    </Container>
   )
 }
