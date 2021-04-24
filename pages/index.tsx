@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
-import Task from 'components/Task'
+import TaskComponent from 'components/Task'
 import Modal from 'components/Modal'
 import NewTaskForm from 'components/NewTaskForm'
+import { Task, TaskWithID } from 'ts/interfaces'
 
 const Container = styled.div`
   padding: 2rem;
@@ -27,17 +28,9 @@ const EmptyMsg = styled.p`
 
 const API_ENDPOINT = '/api/tasks'
 
-interface Task {
-  _id: string | null
-  name: string
-  dueDate?: Date
-  completed: boolean
-  description: string
-}
-
 export default function App() {
   const [loading, setLoading] = useState(true)
-  const [tasks, setTasks] = useState([] as Task[])
+  const [tasks, setTasks] = useState([] as TaskWithID[])
   const [modalIsOpen, setIsModalOpen] = useState(false)
   const [activeTask, setActiveTask] = useState(0)
 
@@ -46,12 +39,7 @@ export default function App() {
     axios
       .get(API_ENDPOINT)
       .then(({ data }) => {
-        setTasks(
-          data.map((item) => ({
-            ...item,
-            dueDate: item.dueDate && new Date(item.dueDate),
-          })),
-        )
+        setTasks(data)
         setLoading(false)
       })
       .catch((err) => console.error(err))
@@ -99,9 +87,9 @@ export default function App() {
     })
   }
 
-  function createTask(name) {
+  function createTask(name: string) {
     const oldTasks = tasks
-    const newTask = {
+    const newTask: Task = {
       name,
       completed: false,
       description: '',
@@ -128,7 +116,7 @@ export default function App() {
             <ul>
               {tasks.length ? (
                 tasks.map(({ _id, ...props }, index) => (
-                  <Task
+                  <TaskComponent
                     key={_id}
                     {...props}
                     onToggle={() => toggleTask(index)}

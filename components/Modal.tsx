@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactModal from 'react-modal'
 import styled from 'styled-components'
+import dateToISO from 'utils/date-to-iso'
+import { Task } from 'ts/interfaces'
 
 import CloseButton from 'components/CloseButton'
 import Field from 'components/Field'
@@ -63,6 +65,15 @@ const DeleteButtonWrapper = styled.div`
 
 ReactModal.setAppElement('#__next')
 
+interface Props {
+  isOpen: boolean
+  onClose(): void
+  onToggle(): void
+  onUpdate({}): void
+  onDelete(): void
+  task: Task
+}
+
 export default function Modal({
   isOpen,
   onClose,
@@ -70,13 +81,12 @@ export default function Modal({
   onUpdate,
   onDelete,
   task = {
+    _id: null,
     completed: false,
     name: '',
     description: '',
   },
-}) {
-  const dateVal = task.dueDate?.toISOString().substring(0, 10)
-
+}: Props) {
   return (
     <Container
       isOpen={isOpen}
@@ -103,8 +113,15 @@ export default function Modal({
         <Section>
           <h2>Due date</h2>
           <DateField
-            onSave={(dateStr) => onUpdate({ dueDate: new Date(dateStr) })}
-            initialValue={dateVal}
+            onSave={(dateStr) => {
+              const year = dateStr.substring(0, 4)
+              const month = dateStr.substring(5, 7)
+              const day = dateStr.substring(8, 10)
+              onUpdate({
+                dueDate: { year, month, day },
+              })
+            }}
+            initialValue={dateToISO(task.dueDate)}
             asInput={true}
             type='date'
           />

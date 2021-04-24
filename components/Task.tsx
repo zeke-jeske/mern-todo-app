@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import Date from 'components/Date'
+import { Task as TaskInterface } from 'ts/interfaces'
 
 const Container = styled.li`
   display: flex;
@@ -26,17 +28,9 @@ const Name = styled.p`
   `}
 `
 
-const DueDate = styled.time`
-  font-weight: bold;
-  font-size: small;
-`
-
-interface Props {
-  completed: boolean
+interface Props extends TaskInterface {
   onToggle: React.FormEventHandler<HTMLInputElement>
-  name: string
   onClick: React.FormEventHandler<HTMLParagraphElement>
-  dueDate?: Date
 }
 
 export default function Task({
@@ -46,18 +40,13 @@ export default function Task({
   onClick,
   dueDate,
 }: Props) {
-  console.log(typeof dueDate)
   return (
     <Container>
       <Checkbox type='checkbox' checked={completed} onChange={onToggle} />
       <Name onClick={onClick} completed={completed}>
         {name}
       </Name>
-      {dueDate && (
-        <DueDate dateTime={dueDate.toString()}>
-          {new Intl.DateTimeFormat().format(dueDate)}
-        </DueDate>
-      )}
+      <Date date={dueDate} />
     </Container>
   )
 }

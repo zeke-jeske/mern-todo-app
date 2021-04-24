@@ -5,7 +5,11 @@ const taskSchema = new Schema({
   name: { type: String, required: true },
   completed: { type: Boolean, default: false },
   description: { type: String, default: '' },
-  dueDate: Date,
+  dueDate: {
+    year: Number,
+    month: Number,
+    day: Number,
+  },
 })
 
 const Task = mongoose.models.Task || mongoose.model('Task', taskSchema)
