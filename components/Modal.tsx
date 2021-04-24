@@ -81,7 +81,6 @@ export default function Modal({
   onUpdate,
   onDelete,
   task = {
-    _id: null,
     completed: false,
     name: '',
     description: '',
@@ -115,7 +114,7 @@ export default function Modal({
           <DateField
             onSave={(dateStr) => {
               const year = dateStr.substring(0, 4)
-              const month = dateStr.substring(5, 7)
+              const month = parseInt(dateStr.substring(5, 7)) - 1
               const day = dateStr.substring(8, 10)
               onUpdate({
                 dueDate: { year, month, day },
