@@ -59,8 +59,7 @@ const DeleteButtonWrapper = styled.div`
   }
 `
 
-// TODO: Fix modal root element
-// ReactModal.setAppElement('#root')
+ReactModal.setAppElement('#__next')
 
 export default function Modal({
   isOpen,
