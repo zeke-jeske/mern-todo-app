@@ -17,43 +17,50 @@ const Container = styled(ReactModal)`
 const InnerContainer = styled.div`
   width: 100%;
   padding: 2rem;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-row-gap: 1.25rem;
-  align-content: start;
+  padding-bottom: 0.5rem;
   background: white;
   border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
 `
 
+const Section = styled.div`
+  margin-bottom: 1.5rem;
+
+  h2 {
+    font-size: large;
+    margin-bottom: 0.75rem;
+  }
+`
+
+const TopSection = styled(Section)`
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  column-gap: 1rem;
+`
+
 const CheckboxWrapper = styled.div`
-  grid-row-start: 1;
-  padding: 0.5rem;
-  padding-left: 0;
+  padding: 0.5rem 0;
   font-size: 1.5rem;
   line-height: 1.25;
 `
 
 const NameField = styled(Field)`
-  grid-column-start: 2;
-  grid-row-start: 1;
-
   textarea {
     font-size: 1.5rem;
   }
 `
 
-const DescriptionField = styled(Field)`
-  grid-column: span 3 / span 3;
+const DateInput = styled.input`
+  display: block;
+`
 
+const DescriptionField = styled(Field)`
   textarea {
     background: #e5e7eb;
   }
 `
 
 const DeleteButtonWrapper = styled.div`
-  grid-column: span 3 / span 3;
-
   button {
     width: 100%;
   }
@@ -81,27 +88,40 @@ export default function Modal({
       className='container'
     >
       <InnerContainer>
-        <div>
+        <TopSection>
           <CloseButton onClick={onClose} />
-        </div>
-        <CheckboxWrapper>
-          <input type='checkbox' checked={task.completed} onChange={onToggle} />
-        </CheckboxWrapper>
-        <NameField
-          onSave={(name) => onUpdate({ name })}
-          initialValue={task.name}
-          required={true}
-        />
-        <DescriptionField
-          onSave={(description) => onUpdate({ description })}
-          initialValue={task.description}
-          multiLine={true}
-          minRows={10}
-          placeholder='Description'
-        />
-        <DeleteButtonWrapper>
-          <DeleteButton onClick={() => onDelete()}>Delete Task</DeleteButton>
-        </DeleteButtonWrapper>
+          <CheckboxWrapper>
+            <input
+              type='checkbox'
+              checked={task.completed}
+              onChange={onToggle}
+            />
+          </CheckboxWrapper>
+          <NameField
+            onSave={(name) => onUpdate({ name })}
+            initialValue={task.name}
+            required={true}
+          />
+        </TopSection>
+        <Section>
+          <h2>Due date</h2>
+          <DateInput type='date' />
+        </Section>
+        <Section>
+          <h2>Description</h2>
+          <DescriptionField
+            onSave={(description) => onUpdate({ description })}
+            initialValue={task.description}
+            multiLine={true}
+            minRows={10}
+            placeholder='Description'
+          />
+        </Section>
+        <Section>
+          <DeleteButtonWrapper>
+            <DeleteButton onClick={() => onDelete()}>Delete Task</DeleteButton>
+          </DeleteButtonWrapper>
+        </Section>
       </InnerContainer>
     </Container>
   )
