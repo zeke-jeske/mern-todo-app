@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import dateToISO from 'utils/date-to-iso'
 import { Task } from 'ts/interfaces'
 
-import CloseButton from 'components/CloseButton'
+import CloseButton from './CloseButton'
 import Field from 'components/Field'
 import { DeleteButton } from 'components/Button'
 
