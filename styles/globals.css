@@ -21,7 +21,9 @@ button {
   outline: solid 0px;
 }
 
-textarea {
+textarea,
+input[type='text'],
+input[type='date'] {
   background: white;
   border: 1px solid;
   border-radius: 0;
@@ -74,8 +76,8 @@ input[type='checkbox'] {
 input,
 textarea,
 button {
-  transition-property: background-color, color, outline, box-shadow;
-  transition-duration: 0.1s;
+  transition-property: background-color, color, box-shadow;
+  transition-duration: 0.3s;
 }
 
 .container {

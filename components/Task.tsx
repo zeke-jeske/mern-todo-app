@@ -26,13 +26,38 @@ const Name = styled.p`
   `}
 `
 
-export default function Task({ completed, onToggle, name, onClick }) {
+const DueDate = styled.time`
+  font-weight: bold;
+  font-size: small;
+`
+
+interface Props {
+  completed: boolean
+  onToggle: React.FormEventHandler<HTMLInputElement>
+  name: string
+  onClick: React.FormEventHandler<HTMLParagraphElement>
+  dueDate?: Date
+}
+
+export default function Task({
+  completed,
+  onToggle,
+  name,
+  onClick,
+  dueDate,
+}: Props) {
+  console.log(typeof dueDate)
   return (
     <Container>
       <Checkbox type='checkbox' checked={completed} onChange={onToggle} />
       <Name onClick={onClick} completed={completed}>
         {name}
       </Name>
+      {dueDate && (
+        <DueDate dateTime={dueDate.toString()}>
+          {new Intl.DateTimeFormat().format(dueDate)}
+        </DueDate>
+      )}
     </Container>
   )
 }

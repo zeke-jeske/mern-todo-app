@@ -47,17 +47,12 @@ const CheckboxWrapper = styled.div`
 const NameField = styled(Field)`
   textarea {
     font-size: 1.5rem;
+    background: initial;
   }
 `
 
-const DateInput = styled.input`
+const DateField = styled(Field)`
   display: block;
-`
-
-const DescriptionField = styled(Field)`
-  textarea {
-    background: #e5e7eb;
-  }
 `
 
 const DeleteButtonWrapper = styled.div`
@@ -80,6 +75,8 @@ export default function Modal({
     description: '',
   },
 }) {
+  const dateVal = task.dueDate?.toISOString().substring(0, 10)
+
   return (
     <Container
       isOpen={isOpen}
@@ -105,11 +102,16 @@ export default function Modal({
         </TopSection>
         <Section>
           <h2>Due date</h2>
-          <DateInput type='date' />
+          <DateField
+            onSave={(dateStr) => onUpdate({ dueDate: new Date(dateStr) })}
+            initialValue={dateVal}
+            asInput={true}
+            type='date'
+          />
         </Section>
         <Section>
           <h2>Description</h2>
-          <DescriptionField
+          <Field
             onSave={(description) => onUpdate({ description })}
             initialValue={task.description}
             multiLine={true}

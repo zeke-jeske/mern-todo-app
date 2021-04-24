@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 const Wrapper = styled.div`
   grid-column-start: 3;
-  grid-row-start: 1;
 `
 
 const Button = styled.button`

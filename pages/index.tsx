@@ -27,9 +27,17 @@ const EmptyMsg = styled.p`
 
 const API_ENDPOINT = '/api/tasks'
 
+interface Task {
+  _id: string | null
+  name: string
+  dueDate?: Date
+  completed: boolean
+  description: string
+}
+
 export default function App() {
   const [loading, setLoading] = useState(true)
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState([] as Task[])
   const [modalIsOpen, setIsModalOpen] = useState(false)
   const [activeTask, setActiveTask] = useState(0)
 
@@ -37,8 +45,13 @@ export default function App() {
   useEffect(() => {
     axios
       .get(API_ENDPOINT)
-      .then((res) => {
-        setTasks(res.data)
+      .then(({ data }) => {
+        setTasks(
+          data.map((item) => ({
+            ...item,
+            dueDate: item.dueDate && new Date(item.dueDate),
+          })),
+        )
         setLoading(false)
       })
       .catch((err) => console.error(err))
@@ -93,7 +106,7 @@ export default function App() {
       completed: false,
       description: '',
     }
-    setTasks([...oldTasks, { ...newTask, _id: -1 }])
+    setTasks([...oldTasks, { ...newTask, _id: null }])
 
     axios
       .post(API_ENDPOINT, newTask)

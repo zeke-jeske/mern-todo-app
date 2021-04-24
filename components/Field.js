@@ -9,15 +9,18 @@ const Form = styled.form`
   flex-wrap: wrap;
 
   &:not(:focus-within) {
-    textarea {
+    textarea,
+    input {
       border-color: transparent;
     }
   }
 
-  textarea {
+  textarea,
+  input {
     width: 100%;
     margin-bottom: 0.75rem;
     resize: none;
+    background: #f0f1f4;
   }
 `
 
@@ -34,16 +37,21 @@ export default function Field({
   minRows = 1.5,
   required = false,
   multiLine = false,
+  asInput = false,
   ...props
 }) {
   const [value, setValue] = useState(initialValue)
   const [active, setActive] = useState(false)
-  const form = createRef(null)
+  const formRef = createRef(null)
+  const inputRef = createRef(null)
   let textarea
 
   function save(e) {
     e.preventDefault()
-    textarea.blur()
+
+    if (asInput) inputRef.current.blur()
+    else textarea.blur()
+
     setActive(false)
     onSave(value)
     onClose()
@@ -56,7 +64,7 @@ export default function Field({
   }
 
   function handleBlur(e) {
-    if (!form.current.contains(e.relatedTarget)) {
+    if (!formRef.current.contains(e.relatedTarget)) {
       // if focus leaves the form
       cancel()
     }
@@ -68,16 +76,32 @@ export default function Field({
   }
 
   return (
-    <Form onSubmit={save} className={className} onBlur={handleBlur} ref={form}>
-      <TextareaAutosize
-        onChange={handleChange}
-        onFocus={() => setActive(true)}
-        minRows={minRows}
-        value={value}
-        required={required}
-        ref={(tag) => (textarea = tag)}
-        {...props}
-      />
+    <Form
+      onSubmit={save}
+      className={className}
+      onBlur={handleBlur}
+      ref={formRef}
+    >
+      {asInput ? (
+        <input
+          onChange={handleChange}
+          onFocus={() => setActive(true)}
+          value={value}
+          required={required}
+          ref={inputRef}
+          {...props}
+        />
+      ) : (
+        <TextareaAutosize
+          onChange={handleChange}
+          onFocus={() => setActive(true)}
+          minRows={minRows}
+          value={value}
+          required={required}
+          ref={(tag) => (textarea = tag)}
+          {...props}
+        />
+      )}
       {active && (
         <>
           <PrimaryButton type='submit' disabled={required && value === ''}>
