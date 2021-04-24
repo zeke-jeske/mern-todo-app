@@ -2,7 +2,7 @@ import React, { createRef, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import styled from 'styled-components'
 
-import Button from 'components/Button'
+import { PrimaryButton, TextButton } from 'components/Button'
 
 const Form = styled.form`
   display: flex;
@@ -21,7 +21,7 @@ const Form = styled.form`
   }
 `
 
-const CancelButton = styled(Button)`
+const CancelButton = styled(TextButton)`
   margin-left: 0.75rem;
 `
 
@@ -80,16 +80,10 @@ export default function Field({
       />
       {active && (
         <>
-          <Button
-            variant='primary'
-            type='submit'
-            disabled={required && value === ''}
-          >
+          <PrimaryButton type='submit' disabled={required && value === ''}>
             {saveMsg}
-          </Button>
-          <CancelButton variant='text' onClick={cancel}>
-            Cancel
-          </CancelButton>
+          </PrimaryButton>
+          <CancelButton onClick={cancel}>Cancel</CancelButton>
         </>
       )}
     </Form>

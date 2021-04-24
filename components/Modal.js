@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import CloseButton from 'components/CloseButton'
 import Field from 'components/Field'
-import Button from 'components/Button'
+import { DeleteButton } from 'components/Button'
 
 const Container = styled(ReactModal)`
   padding: 2rem;
@@ -101,9 +101,7 @@ export default function Modal({
           placeholder='Description'
         />
         <DeleteButtonWrapper>
-          <Button variant='delete' onClick={() => onDelete()}>
-            Delete Task
-          </Button>
+          <DeleteButton onClick={() => onDelete()}>Delete Task</DeleteButton>
         </DeleteButtonWrapper>
       </InnerContainer>
     </Container>
